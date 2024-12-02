@@ -1,5 +1,3 @@
-import fileinput
-
 input_file = open("input.txt")
 
 xs = []
