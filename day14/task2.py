@@ -13,27 +13,42 @@ for line in input_file:
 input_file.close()
 
 seconds = 0
-running = True
-while running:
-    space_map = set()
+while seconds < 10000:
+    space_map = []
+    for i in range(map_size[1]):
+        space_map.append([])
+        for j in range(map_size[0]):
+            space_map[-1].append(0)
+
     for robot in robots:
         robot["p"][0] += robot["v"][0]
         robot["p"][0] %= map_size[0]
         robot["p"][1] += robot["v"][1]
         robot["p"][1] %= map_size[1]
-        space_map.add(tuple(robot["p"]))
+        space_map[robot["p"][1]][robot["p"][0]] = 255
+
+    in_row_max = 0
+    for i in range(len(space_map)):
+        in_row_now = 0
+        for j in range(len(space_map[0])):
+            if space_map[i][j] == 255:
+                in_row_now += 1
+                if in_row_now > in_row_max:
+                    in_row_max = in_row_now
+            else:
+                in_row_now = 0
     
     seconds += 1
 
-    for i in range(map_size[1]):
-        for j in range(map_size[0]):
-            if (j, i) in space_map:
-                print("O", end = "")
-            else:
-                print(".", end = "")
-        print("")
-    print("-" * map_size[0])
+    if in_row_max < 7:
+        continue
 
-    k = input()
-    if k == "q":
-        running = False
+    print(seconds)
+    for i in range(len(space_map)):
+        for j in range(len(space_map[0])):
+            if space_map[i][j] == 0:
+                print(".", end = "")
+            else:
+                print("X", end = "")
+        print("")
+    print("")
