@@ -25,6 +25,8 @@ for line in input_file:
     elif line.startswith("Prize:"):
         coords_string = line[6:].strip()
         coords_list = [int(x.strip()[2:]) for x in coords_string.split(",")]
+        coords_list[0] += 10000000000000
+        coords_list[1] += 10000000000000
         claw_machines[index]["prize"] = tuple(coords_list)
     else:
         claw_machines.append({"A" : (0, 0), "B" : (0, 0), "prize" : (0, 0)})
