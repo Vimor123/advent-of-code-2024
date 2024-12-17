@@ -1,0 +1,7 @@
+16 outputs =>  8 ** 15 <= a < 8 ** 16
+register "B" and "C" effectively reset after an iteration (only register["A"] is important in between iterations)
+
+output in each iteration:
+	((((register["A"] % 8) XOR 2) XOR 3) XOR (register["A"] // (2 ** ((register["A"] % 8) XOR 2)))) % 8
+
+	(((register["A"] % 8) XOR 1) XOR (register["A"] // (2 ** ((register["A"] % 8) XOR 2)))) % 8

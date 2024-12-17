@@ -1,0 +1,8 @@
+1. register["B"] = register["A"] % 8
+2. register["B"] = register["B"] ^ 2
+3. register["C"] = register["A"] // (2 ** register["B"])
+4. register["B"] = register["B"] ^ 3
+5. register["B"] = register["B"] ^ register["C"]
+6. output register["B"] % 8
+7. register["A"] = register["A"] // 8
+8. jump 0 if register["A"] > 0
