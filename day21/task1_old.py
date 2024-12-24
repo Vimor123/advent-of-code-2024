@@ -25,11 +25,6 @@ direction_symbols = {(0, -1) : "<",
                      (0, 1) : ">",
                      (1, 0) : "v"}
 
-direction_values = {"<" : (0, -1),
-                    "^" : (-1, 0),
-                    ">" : (0, 1),
-                    "v" : (1, 0)}
-
 
 def movements_robot(keypad, starting_position, symbol):
     movements = {"^" : 0, ">" : 0, "v" : 0, "<" : 0}
@@ -41,30 +36,32 @@ def movements_robot(keypad, starting_position, symbol):
     if abs(movement_column) > 0:
         movements[direction_symbols[(0, movement_column // abs(movement_column))]] = abs(movement_column)
 
-    movements_string = ""
-    for movement_symbol, amount in movements.items():
-        movements_string += movement_symbol * amount
-
-    return movements_string + "A"
+    return movements
 
 
 for code in codes:
-    numeric_robot = list(starting_numeric)
-    directional_robot1 = list(starting_directional)
-    directional_robot2 = list(starting_directional)
+    numeric_robot = starting_numeric
+    directional_robot1 = starting_directional
+    directional_robot2 = starting_directional
 
-    all_moves = ""
+    shortest_path = 0
+
     for symbol in code:
-        moves_numeric = movements_robot(numeric_keypad, numeric_robot, symbol)
-        for move_numeric in moves_numeric[:-1]:
-            numeric_robot[0] += direction_values[move_numeric][0]
-            numeric_robot[1] += direction_values[move_numeric][1]
-            
-            moves_directional1 = movements_robot(directional_keypad, directional_robot1, move_numeric)
-            for move_directional1 in moves_directional1[:-1]:
-                directional_robot1[0] += direction_values[move_directional1][0]
-                directional_robot1[1] += direction_values[move_directional1][1]
+        movements_numeric = movements_robot(numeric_keypad, numeric_robot, symbol)
 
-            all_moves += moves_directional1
+        for direction_symbol, number_of_moves in movements_numeric.items():
+            if number_of_moves > 0:
+                movements_directional1 = movements_robot(directional_keypad, directional_robot1, direction_symbol)
 
-    print(all_moves)
+                for direction_symbol1, number_of_moves1 in movements_directional1.items():
+                    pass
+
+                next_directional2_location = (0, 2)
+
+                directional_robot1 = directional_keypad[direction_symbol]
+
+        next_directional1_location = (0, 2)
+
+        numeric_robot = numeric_keypad[symbol]
+
+    print(shortest_path)
