@@ -69,6 +69,21 @@ input_file.close()
 code_keys = list(codes.keys())
 code_keys.sort()
 code_keys.reverse()
-for code in code_keys:
-    print(code, codes[code])
 
+output_file1 = open("task2_help1.txt", "w")
+
+output_file1.write("   ")
+for i in range(44, -1, -1):
+    output_file1.write(str(i).rjust(4))
+
+output_file1.write("\nXOR")
+
+for i in range(44, -1, -1):
+    output_file1.write(codes["x{:02d}y{:02d}xor".format(i, i)].rjust(4))
+
+output_file1.write("\nAND")
+
+for i in range(44, -1, -1):
+    output_file1.write(codes["x{:02d}y{:02d}and".format(i, i)].rjust(4))
+
+output_file1.close()
